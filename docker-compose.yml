@@ -1,0 +1,10 @@
+services:
+  deno:
+    container_name: deno
+    image: denoland/deno:alpine-1.30.3
+    command: sh -c "deno task start_watcher && denon startup"
+    ports:
+      - 127.0.0.1:8080:8080
+    working_dir: /docker_prototype
+    volumes:
+      - ./:/docker_prototype
