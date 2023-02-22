@@ -1,10 +1,35 @@
 services:
+  postgres:
+    container_name: postgres
+    image: postgres:15.2-alpine
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+     # - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - backend
+    environment:
+        POSTGRES_PASSWORD: secret
+        POSTGRES_DB: prototype
+        
   deno:
     container_name: deno
     image: denoland/deno:alpine-1.30.3
     command: sh -c "deno task start_watcher && denon startup"
     ports:
-      - 127.0.0.1:8080:8080
+      - 8080:8080
     working_dir: /docker_prototype
     volumes:
       - ./:/docker_prototype
+    networks:
+      - backend
+    depends_on:
+      - postgres
+    
+volumes:
+  pgdata: {}
+
+networks:
+  backend: {}
