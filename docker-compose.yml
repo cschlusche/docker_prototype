@@ -23,6 +23,7 @@ services:
     working_dir: /docker_prototype
     volumes:
       - ./:/docker_prototype
+      - /home/christian/demodata/:/docker_prototype/demodata/
     networks:
       - backend
     depends_on:
