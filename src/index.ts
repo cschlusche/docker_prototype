@@ -1,17 +1,17 @@
-import { Application, oakCors, Client } from './deps.ts'
+import { Application, oakCors, ClientOptions, Client } from './deps.ts'
 import { r } from './routes.ts'
-import { logger } from './log.ts'
+import { logFileHandler, logger } from './log.ts'
 
 const APP_HOST = 'deno' //127.0.0.1 -> {docker-compose.yml service_name}
 const APP_PORT = 8080
 
 const app = new Application();
 app.use(oakCors({origin: /^.+127.0.0.1$/,
-optionSuccessStatus: 200}))
+optionsSuccessStatus: 200}))
 
 app.use(r.routes())
 
-let db_connection_config = {
+const db_connection_config: ClientOptions = {
     
     applicationName: "prototype_app",
     connection: {
@@ -35,7 +35,7 @@ let db_client : Client;
 
 try{
     db_client = new Client( db_connection_config );
-    let conn = await db_client.connect();
+    const conn = await db_client.connect();
 
 }catch(error){
     logger.error(`An error occured accessing the database. More information below: `)

@@ -29,7 +29,7 @@ r.get('/read', async (ctx) => {
             columns: ['id','firstname','lastname','lastUpdate','lastStatus']
         })
         
-        clientData = rows.flat(1) as string[];
+        clientData = (rows.flat(1) as unknown[]) as string[];
         
     }catch(error){
         logger.error("Error route '/read'" + JSON.stringify(error, null, 2))
