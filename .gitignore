@@ -2,3 +2,4 @@
 deno.lock
 git-commit.txt
 /logs/
+.env

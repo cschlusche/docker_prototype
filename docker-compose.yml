@@ -11,7 +11,7 @@ services:
     networks:
       - backend
     environment:
-        POSTGRES_PASSWORD: secret
+        POSTGRES_PASSWORD: ${PGSQL_PASSWORD}
         POSTGRES_DB: prototype
         
   deno:
